@@ -22,6 +22,6 @@ class CSVManager:
             writer.writerows(initial_data)
 
     def add_row(self, row):
-        with open(self.path, 'a', encoding='utf-8') as csvfile:
+        with open(self.path, 'a', encoding='utf-8', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
