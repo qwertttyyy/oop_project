@@ -57,7 +57,7 @@ class Transactions(CSVManager):
 
             transaction_date = dt.datetime.strptime(transaction['Дата и время'], '%Y-%m-%d %H:%M')
 
-            if transaction_date >= start_date and transaction_date <= end_date:
+            if start_date <= transaction_date <= end_date:
                 filtered_transactions.append(transaction)
 
         return filtered_transactions
