@@ -11,14 +11,18 @@ class Transactions(CSVManager):
         self.transactions_list = transactions_list
 
     def read_file(self):
-        data = self.read_data()
-        headers = data[0]
-        rows = data[1:]
-        self.transactions_list = [dict(zip(headers, row)) for row in rows]
-
+        if self.transactions_list:
+            data = self.read_data()
+            headers = data[0]
+            rows = data[1:]
+            self.transactions_list = [dict(zip(headers, row)) for row in rows]
+            return self.transactions_list
+        
         return self.transactions_list
 
     def add_transaction(self, sender_account, receiver_account, summ):
+        if not self.transactions_list:
+            self.overwrite_file([['Дата и время','Счет отправителя','Счет получателя','Сумма']])
         if summ > 0 and sender_account != receiver_account:
             transaction = {
                 'Дата и время': dt.datetime.now().strftime('%Y-%m-%d %H:%M'),
